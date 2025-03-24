@@ -1,8 +1,8 @@
-// src/index.js
+
 document.addEventListener("DOMContentLoaded", () => {
   const characterBar = document.getElementById("character-bar");
 
-  // Fetch characters from the API
+
   fetch("http://localhost:3000/characters")
     .then((response) => response.json())
     .then((characters) => {
@@ -25,7 +25,7 @@ function displayCharacterDetails(character) {
     <p>Votes: <span id="vote-count">${character.votes}</span></p>
   `;
 
-  // Add event listener for the votes form
+  
   const votesForm = document.getElementById("votes-form");
   votesForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -37,7 +37,7 @@ function displayCharacterDetails(character) {
     votesForm.reset();
   });
 }
-// Add this to the `displayCharacterDetails` function
+
 const resetButton = document.getElementById('reset-btn');
 resetButton.addEventListener('click', () => {
   const voteCount = document.getElementById('vote-count');
@@ -55,18 +55,18 @@ characterForm.addEventListener("submit", (event) => {
     votes: 0,
   };
 
-  // Add the new character to the character bar
+  
   const span = document.createElement("span");
   span.textContent = newCharacter.name;
   span.addEventListener("click", () => displayCharacterDetails(newCharacter));
   characterBar.appendChild(span);
 
-  // Display the new character's details
+  
   displayCharacterDetails(newCharacter);
 
   characterForm.reset();
 });
-// Update the votes form event listener
+
 votesForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const votesInput = document.getElementById('votes');
@@ -74,7 +74,7 @@ votesForm.addEventListener('submit', (event) => {
   const newVotes = parseInt(voteCount.textContent) + parseInt(votesInput.value);
   voteCount.textContent = newVotes;
 
-  // Update the server
+ 
   fetch(`http://localhost:3000/characters/${character.id}`, {
     method: 'PATCH',
     headers: {
@@ -89,12 +89,12 @@ votesForm.addEventListener('submit', (event) => {
   votesForm.reset();
 });
 
-// Update the reset button event listener
+
 resetButton.addEventListener('click', () => {
   const voteCount = document.getElementById('vote-count');
   voteCount.textContent = 0;
 
-  // Update the server
+
   fetch(`http://localhost:3000/characters/${character.id}`, {
     method: 'PATCH',
     headers: {
@@ -117,7 +117,7 @@ characterForm.addEventListener("submit", (event) => {
     votes: 0,
   };
 
-  // Save the new character to the server
+
   fetch("http://localhost:3000/characters", {
     method: "POST",
     headers: {
@@ -135,7 +135,7 @@ characterForm.addEventListener("submit", (event) => {
       );
       characterBar.appendChild(span);
 
-      // Display the new character's details
+      
       displayCharacterDetails(savedCharacter);
     })
     .catch((error) => console.error("Error saving character:", error));
